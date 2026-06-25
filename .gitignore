@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# Environment / secrets (never commit real values)
+.env
+
+# Local database + runtime data
+data/
+*.db
+*.db-wal
+*.db-shm
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

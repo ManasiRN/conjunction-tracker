@@ -1,0 +1,29 @@
+# ============================================================================
+#  Mission configuration: the satellites the FDS monitors for conjunctions.
+#
+#  This is the ONLY file you edit to add a newly launched satellite.
+#  Add a new "- norad_id: ..." block, restart the service, and that satellite
+#  is automatically included in the next fetch/filter cycle. No code changes.
+#
+#  norad_id : (required) NORAD catalog number used to filter SOCRATES data.
+#  name     : (optional) operator's short name, for readability/logs.
+#  notes    : (optional) free text.
+# ============================================================================
+
+satellites:
+  - norad_id: 65320
+    name: FFLY01
+    notes: Pixxel Firefly-1 (hyperspectral)
+
+  - norad_id: 65322
+    name: FFLY02
+    notes: Pixxel Firefly-2 (hyperspectral)
+
+  - norad_id: 65319
+    name: FFLY03
+    notes: Pixxel Firefly-3 (hyperspectral)
+
+  # --- Example: to start monitoring a future launch, just uncomment & edit ---
+  # - norad_id: 70000
+  #   name: FFLY04
+  #   notes: Pixxel Firefly-4

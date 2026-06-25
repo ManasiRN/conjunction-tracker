@@ -1,0 +1,51 @@
+# ============================================================================
+#  Conjunction Tracker - full stack
+#    api        : scheduled SOCRATES fetcher + REST API   (port 8000)
+#    dashboard  : bonus Streamlit visualization           (port 8501)
+#
+#  Quick start:   cp .env.example .env  &&  docker compose up --build
+#  API docs:      http://localhost:8000/docs
+#  Dashboard:     http://localhost:8501
+# ============================================================================
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pixxel/conjunction-tracker-api
+    container_name: conjunction-api
+    env_file:
+      # Optional: defaults are baked into the image, so the service runs even
+      # without a .env. Create one (cp .env.example .env) only to override.
+      - path: .env
+        required: false
+    environment:
+      # Ensure the DB path points at the mounted volume regardless of .env.
+      DATABASE_PATH: /data/conjunctions.db
+      SATELLITE_CONFIG_PATH: /app/config/satellites.yaml
+    ports:
+      - "8000:8000"
+    volumes:
+      # Persist historical conjunction data across container restarts.
+      - conjunction-data:/data
+      # Mount config read-only so satellites can be edited without rebuilding.
+      - ./config:/app/config:ro
+    restart: unless-stopped
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: dashboard/Dockerfile
+    image: pixxel/conjunction-tracker-dashboard
+    container_name: conjunction-dashboard
+    environment:
+      API_BASE_URL: http://api:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  conjunction-data:

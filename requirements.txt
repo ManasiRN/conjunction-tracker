@@ -1,0 +1,17 @@
+# ---- Conjunction Tracker: runtime dependencies ----
+# Pinned to minor versions for reproducible Docker builds.
+
+# REST API + ASGI server (auto-generates OpenAPI/Swagger docs for free)
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+
+# Configuration: env vars (operational) + YAML (mission/satellite list)
+pydantic==2.10.4
+pydantic-settings==2.7.1
+PyYAML==6.0.2
+
+# HTTP client used to fetch the SOCRATES bulk CSV
+requests==2.32.3
+
+# Background scheduler for the periodic, polite fetch cycle
+APScheduler==3.11.0
